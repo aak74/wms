@@ -3,19 +3,25 @@
     <backlog class="clearfix" :items="backlog"/>
     <v-layout>
       <v-flex sm1>
-        <stages />
+        <h2>Gates</h2>
+        <stages :stages="stages" />
       </v-flex>
       <v-flex v-for="gate in gates" >
-        <gate :items="items"/>
+        <gate :gate="gate" :stages="stages" />
       </v-flex>
     </v-layout>
   </div>
 </template>
 
 <script>
-import Stages from './Stages'
-import Gate from './Gate'
-import Backlog from './Backlog'
+import Stages from './Stages';
+import Gate from './Gate';
+import Backlog from './Backlog';
+
+import BacklogModel from '../model/Backlog';
+import GateModel from '../model/Gate';
+import MatrixModel from '../model/Matrix';
+import StageModel from '../model/Stage';
 
 export default {
   name: 'Dashboard',
@@ -26,38 +32,24 @@ export default {
   },
   computed: {
     gates() {
-      return [1, 2, 3, 4, 5];
+      const model = new GateModel;
+      return model.getList();
     },
 
     backlog() {
-      return [12, 45, 67];
+      const model = new BacklogModel;
+      return model.getList();
     },
 
     items() {
-      return [
-        {
-          name: '1',
-          task: {
-            number: 123,
-            stage: 'picking'
-          }
-        },
-        {
-          name: '2',
-          task: {
-            number: 123,
-            stage: 'waiting'
-          }
-        },
-        {
-          name: '3',
-          task: {
-            number: 123,
-            stage: 'loading'
-          }
-        },
-      ];
-    }
+      const model = new MatrixModel;
+      return model.getList();
+    },
+
+    stages() {
+      const model = new StageModel;
+      return model.getList();
+    },
   }
 }
 </script>

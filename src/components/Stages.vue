@@ -1,6 +1,6 @@
 <template>
   <v-data-iterator
-    :items="items"
+    :items="stages"
     hide-actions
   >
     <div
@@ -16,14 +16,8 @@
 <script>
 export default {
   name: 'Stages',
-  computed: {
-    items() {
-      return [
-        'picking',
-        'waiting',
-        'loading',
-      ];
-    }
-  }
+  props: [
+    'stages'
+  ],
 }
 </script>

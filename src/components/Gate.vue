@@ -1,44 +1,38 @@
 <template>
-  <v-data-iterator
-    :items="items"
-    hide-actions
-    class="gate"
-  >
-    {{ items }}
-    <v-card
-      slot="item"
-      slot-scope="props"
+  <div>
+    <h2 class="text-md-center">{{ gate.id }}</h2>
+    <v-data-iterator
+      :items="items"
+      hide-actions
+      class="gate"
     >
-      <p class="text-md-center">{{ props.item.name }}</p>
-     
-    </v-card>
-  </v-data-iterator>    
+      <v-card
+        slot="item"
+        slot-scope="props"
+      >
+        <p class="text-md-center" v-html="props.item"></p>
+      </v-card>
+    </v-data-iterator>    
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Gate',
   props: [
-    'items'
+    'gate',
+    'stages',
   ],
   computed: {
-    items2() {
-      return [
-        {
-          name: '1',
-          task: {
-            number: 123,
-            stage: 'picking'
-          }
-        },
-        {
-          name: '2',
-          task: {
-            number: 123,
-            stage: 'picking'
-          }
+    items() {
+      return this.$props.stages.reduce((carry, stage, index) => {
+        if (this.$props.gate.stage === index) {
+          carry.push(this.$props.gate.id);
+        } else {
+          carry.push('&nbsp;');
         }
-      ];
+        return carry;
+      }, []);
     }
   }
 }
