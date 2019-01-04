@@ -20,13 +20,13 @@ import Gate from './Gate';
 import Backlog from './Backlog';
 
 import BacklogModel from '../model/Backlog';
-import GateModel from '../model/Gate';
+// import GateModel from '../model/Gate';
 import MatrixModel from '../model/Matrix';
 import StageModel from '../model/Stage';
 
 // import UpdateStages from '../service/UpdateStages';
 
-const gateModel = new GateModel;
+// const gateModel = new GateModel;
 
 export default {
   name: 'Dashboard',
@@ -64,21 +64,27 @@ export default {
       const model = new StageModel;
       return model.getList();
     },
+
+    store() {
+      return this.$root.$options.store;
+    }
   },
 
   methods: {
     next() {
       console.log('next');
-      const updateStages = new UpdateStages;
-      // updateStages.execute();
-      gateModel.update();
-      this.gates = gateModel.getList();
+      // const updateStages = new UpdateStages;
+      this.store.updateStage();
+      this.getGates();
+      // gateModel.update();
+      // this.gates = gateModel.getList();
     },
     getGates() {
-      // console.log('getGates', this);
-      // console.log('getGates', this.$root.$options.app);
+      console.log('getGates', this);
+      console.log('getGates', this.$root.$options.store);
       
-      this.gates = gateModel.getList();
+      // this.gates = gateModel.getList();
+      this.gates = this.store.gateModel.gates;
     },
   },
 }

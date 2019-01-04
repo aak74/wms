@@ -46,8 +46,10 @@ class Gate {
     return this.gates;
   }
 
-  update() {
-    return this.gates[0].stage = 2;
+  update(index) {
+    console.log('update', index);
+    
+    return this.gates[index].stage += 1;
   }
 
 }
