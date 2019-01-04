@@ -1,9 +1,9 @@
 'use strict';
 
-class Gate {
 
-  getList() {
-    return [
+class Gate {
+  constructor() {
+    this.gates = [
       {
         id: 11,
         stage: 1,
@@ -40,6 +40,14 @@ class Gate {
         }
       }
     ];
+  }
+
+  getList() {
+    return this.gates;
+  }
+
+  update() {
+    return this.gates[0].stage = 2;
   }
 
 }

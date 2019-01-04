@@ -10,6 +10,7 @@
         <gate :gate="gate" :stages="stages" />
       </v-flex>
     </v-layout>
+    <v-btn v-on:click="next">Next</v-btn>
   </div>
 </template>
 
@@ -23,6 +24,10 @@ import GateModel from '../model/Gate';
 import MatrixModel from '../model/Matrix';
 import StageModel from '../model/Stage';
 
+// import UpdateStages from '../service/UpdateStages';
+
+const gateModel = new GateModel;
+
 export default {
   name: 'Dashboard',
   components: {
@@ -30,12 +35,21 @@ export default {
     Gate,
     Backlog,
   },
-  computed: {
-    gates() {
-      const model = new GateModel;
-      return model.getList();
-    },
 
+  data() {
+    return {
+      gates: [],
+    };
+  },
+
+  watch: {
+    gates: {
+      handler: 'getGates',
+      immediate: true,
+    },
+  },
+
+  computed: {
     backlog() {
       const model = new BacklogModel;
       return model.getList();
@@ -50,7 +64,23 @@ export default {
       const model = new StageModel;
       return model.getList();
     },
-  }
+  },
+
+  methods: {
+    next() {
+      console.log('next');
+      const updateStages = new UpdateStages;
+      // updateStages.execute();
+      gateModel.update();
+      this.gates = gateModel.getList();
+    },
+    getGates() {
+      // console.log('getGates', this);
+      // console.log('getGates', this.$root.$options.app);
+      
+      this.gates = gateModel.getList();
+    },
+  },
 }
 </script>
 
