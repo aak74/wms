@@ -1,4 +1,4 @@
-# wms
+# Visualization "How Warehouse works"
 
 ## Project setup
 ```
