@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="text-md-center">{{ gate.id }}</h2>
+    <h3 class="text-md-center">{{ gate.id }}</h3>
     <v-data-iterator
       :items="items"
       hide-actions
@@ -21,18 +21,19 @@ export default {
   name: 'Gate',
   props: [
     'gate',
-    'stages',
+    'stagesCount',
   ],
   computed: {
     items() {
-      return this.$props.stages.reduce((carry, stage, index) => {
+      const items = [];
+      for (let index = 0; index < this.$props.stagesCount; index++) {
         if (this.$props.gate.stage === index) {
-          carry.push(this.$props.gate.id);
+          items.push(this.$props.gate.id);
         } else {
-          carry.push('&nbsp;');
+          items.push('&nbsp;');
         }
-        return carry;
-      }, []);
+      }
+      return items;
     }
   }
 }
