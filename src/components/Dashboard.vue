@@ -65,26 +65,23 @@ export default {
       return model.getList();
     },
 
-    store() {
-      return this.$root.$options.store;
+    controller() {
+      return this.$root.$options.controller;
     }
   },
 
   methods: {
     next() {
       console.log('next');
-      // const updateStages = new UpdateStages;
-      this.store.updateStage();
+      this.controller.updateStage();
       this.getGates();
-      // gateModel.update();
-      // this.gates = gateModel.getList();
     },
     getGates() {
-      console.log('getGates', this);
-      console.log('getGates', this.$root.$options.store);
+      // console.log('getGates', this);
+      console.log('getGates', this.controller);
       
       // this.gates = gateModel.getList();
-      this.gates = this.store.gateModel.gates;
+      this.gates = this.controller.gateModel.gates;
     },
   },
 }

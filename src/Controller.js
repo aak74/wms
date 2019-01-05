@@ -3,19 +3,19 @@
 import GateModel from './model/Gate';
 import UpdateStages from './service/UpdateStages';
 
-class Store {
+class Controller {
   constructor() {
     this.gateModel = new GateModel;
-    this.updateStages = new UpdateStages(this.gateModel);
   }
-
+  
   updateStage() {
     function getRandomInt(max) {
       return Math.floor(Math.random() * max);
     }
-
-    this.gateModel.update(getRandomInt(4));
+    
+    const updateStages = new UpdateStages(this.gateModel);
+    updateStages.execute(getRandomInt(4));
   }
 }
 
-export default Store;
+export default Controller;
