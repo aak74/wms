@@ -8,7 +8,7 @@
       slot="item"
       slot-scope="props"
     >
-      {{ props.item }}
+      {{ props.item.name }}
     </div>
   </v-data-iterator>    
 </template>

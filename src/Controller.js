@@ -8,9 +8,9 @@ import StageModel from './model/Stage';
 
 class Controller {
   constructor() {
-    this.gateModel = new GateModel;
-    this.backlogModel = new BacklogModel;
     this.stageModel = new StageModel;
+    this.gateModel = new GateModel(this.stageModel.getList());
+    this.backlogModel = new BacklogModel;
   }
   
   getList(modelName) {
@@ -21,12 +21,7 @@ class Controller {
   }
 
   updateStage() {
-    function getRandomInt(max) {
-      return Math.floor(Math.random() * max);
-    }
-    
-    // const updateStages = new UpdateStages(this.gateModel);
-    updateStages(this.gateModel, getRandomInt(4));
+    updateStages(this.gateModel);
   }
 }
 

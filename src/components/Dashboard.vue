@@ -26,6 +26,8 @@ import Stages from './Stages';
 import Gates from './Gates';
 import Backlog from './Backlog';
 
+
+
 export default {
   name: 'Dashboard',
   components: {
@@ -68,11 +70,20 @@ export default {
       this.getGates();
     },
     getGates() {
-      console.log('getGates', this.controller);
-      
+      // console.log('getGates', this.controller);
       this.gates = this.controller.getList('gate');
     },
   },
+
+  created() {
+    this.timer = setInterval(() => {
+      this.getGates();
+    }, 1000);
+  },
+
+  destroyed() {
+    clearInterval(this.timer);
+  }
 }
 </script>
 

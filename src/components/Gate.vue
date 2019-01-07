@@ -26,9 +26,9 @@ export default {
   computed: {
     items() {
       const items = [];
-      for (let index = 0; index < this.$props.stagesCount; index++) {
-        if (this.$props.gate.stage === index) {
-          items.push(this.$props.gate.id);
+      for (let index = 0; index < this.stagesCount; index++) {
+        if (this.gate.stage === index && this.gate.task) {
+          items.push(this.gate.task.id);
         } else {
           items.push('&nbsp;');
         }

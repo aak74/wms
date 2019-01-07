@@ -2,11 +2,14 @@
 
 
 class Gate {
-  constructor() {
+  constructor(stages) {
+    this.stages = stages;
+
     this.gates = [
       {
         id: 11,
         stage: 1,
+        time: 2,
         task: {
           id: 123,
         },
@@ -14,6 +17,7 @@ class Gate {
       {
         id: 2,
         stage: 1,
+        time: 3,
         task: {
           id: 234,
         },
@@ -21,6 +25,7 @@ class Gate {
       {
         id: 3,
         stage: 0,
+        time: 4,
         task: {
           id: 345,
         },
@@ -28,6 +33,7 @@ class Gate {
       {
         id: 4,
         stage: 3,
+        time: 2,
         task: {
           id: 546,
         },
@@ -35,6 +41,7 @@ class Gate {
       {
         id: 5,
         stage: 1,
+        time: 2,
         task: {
           id: 675,
         }
@@ -46,12 +53,34 @@ class Gate {
     return this.gates;
   }
 
-  update(index) {
-    console.log('update', index);
-    
-    return this.gates[index].stage += 1;
+  update(time) {
+    // console.log('update', index);
+    this.gates.forEach((_, index, arr) => {
+      if (!arr[index].task) {
+        return;
+      }
+
+      arr[index].time -= time;
+      if (arr[index].time <= 0) {
+        if (arr[index].stage < this.stages.length) {
+          arr[index].stage++;
+          if (arr[index].stage < this.stages.length) {
+            arr[index].time = this.getTimeForStage(arr[index].stage);
+            console.log('update time', index, arr[index].time);
+            
+          }
+        }
+      }
+      if (arr[index].stage >= this.stages.length) {
+        arr[index].task = null;
+      }
+    });
   }
 
+  getTimeForStage(index) {
+    console.log('gtfs', this.stages[index].time);
+    return this.stages[index].time * (1.5 - Math.random());
+  }
 }
 
 export default Gate;
