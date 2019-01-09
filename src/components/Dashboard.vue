@@ -17,6 +17,7 @@
         <gates :gates="gates" :stages-count="stages.length"/>
       </v-flex>
     </v-layout>
+    <done />
     <v-btn v-on:click="next">Next</v-btn>
   </div>
 </template>
@@ -25,8 +26,7 @@
 import Stages from './Stages';
 import Gates from './Gates';
 import Backlog from './Backlog';
-
-
+import Done from './Done';
 
 export default {
   name: 'Dashboard',
@@ -34,6 +34,7 @@ export default {
     Stages,
     Gates,
     Backlog,
+    Done,
   },
 
   data() {
@@ -97,6 +98,7 @@ export default {
   margin-bottom: 10px;
 }
 
+.time-slots,
 .backlog {
   position: relative;
 }
@@ -114,5 +116,16 @@ export default {
   display: block;
   content: "";
   clear: both;
+}
+
+.time-slot {
+  float: left;
+  height: 120px;
+  width: 56px;
+  line-height: 40px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  /* border-right: 1px solid #424242; */
+  border-left: 1px solid #999999;
 }
 </style>

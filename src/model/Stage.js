@@ -5,19 +5,19 @@ class Stage {
   getList() {
     return [
       {
-        name: 'picking',
+        name: 'Picking',
         time: 4,
       },
       {
-        name: 'waiting',
+        name: 'Truck waiting',
         time: 1,
       },
       {
-        name: 'loading',
+        name: 'Loading',
         time: 2,
       },
       {
-        name: 'closing',
+        name: 'Sealing',
         time: 1,
       },
     ];
