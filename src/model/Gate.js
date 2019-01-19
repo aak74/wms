@@ -2,8 +2,9 @@
 
 
 class Gate {
-  constructor(stages) {
+  constructor(stages, done) {
     this.stages = stages;
+    this.done = done;
 
     this.gates = [
       {
@@ -72,6 +73,7 @@ class Gate {
         }
       }
       if (arr[index].stage >= this.stages.length) {
+        this.done(arr[index].task);
         arr[index].task = null;
       }
     });

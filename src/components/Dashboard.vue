@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-btn v-on:click="start">Start</v-btn>
     <backlog class="clearfix" :items="backlog"/>
     <v-layout>
       <v-flex sm1>
@@ -17,8 +18,7 @@
         <gates :gates="gates" :stages-count="stages.length"/>
       </v-flex>
     </v-layout>
-    <done />
-    <v-btn v-on:click="next">Next</v-btn>
+    <done :items="done"/>
   </div>
 </template>
 
@@ -40,12 +40,17 @@ export default {
   data() {
     return {
       gates: [],
+      done: [],
     };
   },
 
   watch: {
     gates: {
       handler: 'getGates',
+      immediate: true,
+    },
+    done: {
+      handler: 'getDone',
       immediate: true,
     },
   },
@@ -65,20 +70,25 @@ export default {
   },
 
   methods: {
-    next() {
-      console.log('next');
+    start() {
+      console.log('start');
       this.controller.updateStage();
       this.getGates();
     },
+
     getGates() {
-      // console.log('getGates', this.controller);
       this.gates = this.controller.getList('gate');
+    },
+
+    getDone() {
+      this.done = this.controller.getList('done');
     },
   },
 
   created() {
     this.timer = setInterval(() => {
       this.getGates();
+      this.getDone();
     }, 1000);
   },
 

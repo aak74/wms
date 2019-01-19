@@ -3,13 +3,17 @@
 import GateModel from './model/Gate';
 import updateStages from './service/UpdateStages';
 import BacklogModel from './model/Backlog';
-// import MatrixModel from './model/Matrix';
+import DoneModel from './model/Done';
 import StageModel from './model/Stage';
 
 class Controller {
   constructor() {
     this.stageModel = new StageModel;
-    this.gateModel = new GateModel(this.stageModel.getList());
+    this.doneModel = new DoneModel;
+    console.log(this.doneModel);
+    this.gateModel = new GateModel(this.stageModel.getList(), (item) => {
+      this.done(item);
+    });
     this.backlogModel = new BacklogModel;
   }
   
@@ -22,6 +26,12 @@ class Controller {
 
   updateStage() {
     updateStages(this.gateModel);
+  }
+
+  done(item) {
+    console.log(this.doneModel, item);
+    
+    this.doneModel.add(item);
   }
 }
 
