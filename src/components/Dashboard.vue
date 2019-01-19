@@ -1,6 +1,5 @@
 <template>
   <div>
-    <v-btn v-on:click="start">Start</v-btn>
     <backlog class="clearfix" :items="backlog"/>
     <v-layout>
       <v-flex sm1>
@@ -44,16 +43,16 @@ export default {
     };
   },
 
-  watch: {
-    gates: {
-      handler: 'getGates',
-      immediate: true,
-    },
-    done: {
-      handler: 'getDone',
-      immediate: true,
-    },
-  },
+  // watch: {
+  //   gates: {
+  //     handler: 'getGates',
+  //     immediate: true,
+  //   },
+  //   done: {
+  //     handler: 'getDone',
+  //     immediate: true,
+  //   },
+  // },
 
   computed: {
     backlog() {
@@ -71,6 +70,7 @@ export default {
       console.log('start');
       this.$ctrl.updateStage();
       this.getGates();
+      this.getDone();
     },
 
     getGates() {
@@ -84,15 +84,17 @@ export default {
 
   created() {
     console.log(this.$ctrl);
+    this.start();
+
     
-    this.timer = setInterval(() => {
-      this.getGates();
-      this.getDone();
-    }, 1000);
+    // this.timer = setInterval(() => {
+    //   this.getGates();
+    //   this.getDone();
+    // }, 1000);
   },
 
   destroyed() {
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
   }
 }
 </script>
