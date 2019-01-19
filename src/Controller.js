@@ -10,7 +10,6 @@ class Controller {
   constructor() {
     this.stageModel = new StageModel;
     this.doneModel = new DoneModel;
-    console.log(this.doneModel);
     this.gateModel = new GateModel(this.stageModel.getList(), (item) => {
       this.done(item);
     });
@@ -29,8 +28,6 @@ class Controller {
   }
 
   done(item) {
-    console.log(this.doneModel, item);
-    
     this.doneModel.add(item);
   }
 }

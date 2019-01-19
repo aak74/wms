@@ -57,35 +57,34 @@ export default {
 
   computed: {
     backlog() {
-      return this.controller.getList('backlog');
+      return this.$ctrl.getList('backlog');
     },
 
     stages() {
-      return this.controller.getList('stage');
+      return this.$ctrl.getList('stage');
     },
 
-    controller() {
-      return this.$root.$options.controller;
-    }
   },
 
   methods: {
     start() {
       console.log('start');
-      this.controller.updateStage();
+      this.$ctrl.updateStage();
       this.getGates();
     },
 
     getGates() {
-      this.gates = this.controller.getList('gate');
+      this.gates = this.$ctrl.getList('gate');
     },
 
     getDone() {
-      this.done = this.controller.getList('done');
+      this.done = this.$ctrl.getList('done');
     },
   },
 
   created() {
+    console.log(this.$ctrl);
+    
     this.timer = setInterval(() => {
       this.getGates();
       this.getDone();
