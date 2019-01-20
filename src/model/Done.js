@@ -1,18 +1,11 @@
 'use strict';
 
-class Done {
+import Model from './Model';
+
+class Done extends Model {
   constructor() {
-    this.items = [];
+    super();
   }
-
-  getList() {
-    return this.items;
-  }
-
-  add(item) {
-    return this.items.push(item);
-  }
-
 }
 
 export default Done;

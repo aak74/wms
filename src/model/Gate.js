@@ -1,12 +1,10 @@
 'use strict';
 
+import Model from './Model';
 
-class Gate {
+class Gate extends Model {
   constructor(stages, done) {
-    this.stages = stages;
-    this.done = done;
-
-    this.gates = [
+    super([
       {
         id: 11,
         stage: 1,
@@ -47,16 +45,14 @@ class Gate {
           id: 675,
         }
       }
-    ];
-  }
-
-  getList() {
-    return this.gates;
+    ]);
+    this.stages = stages;
+    this.done = done;
   }
 
   update(time) {
     // console.log('update', index);
-    this.gates.forEach((_, index, arr) => {
+    this.items.forEach((_, index, arr) => {
       if (!arr[index].task) {
         return;
       }
@@ -67,8 +63,7 @@ class Gate {
           arr[index].stage++;
           if (arr[index].stage < this.stages.length) {
             arr[index].time = this.getTimeForStage(arr[index].stage);
-            console.log('update time', index, arr[index].time);
-            
+            // console.log('update time', index, arr[index].time);
           }
         }
       }
@@ -80,7 +75,7 @@ class Gate {
   }
 
   getTimeForStage(index) {
-    console.log('gtfs', this.stages[index].time);
+    // console.log('gtfs', this.stages[index].time);
     return this.stages[index].time * (1.5 - Math.random());
   }
 }

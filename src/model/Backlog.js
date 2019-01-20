@@ -1,11 +1,11 @@
 'use strict';
 
-class Backlog {
+import Model from './Model';
 
-  getList() {
-    return [12, 23, 34, 45, 56];
+class Backlog extends Model {
+  constructor() {
+    super([12, 23, 34, 45, 56]);
   }
-
 }
 
 export default Backlog;

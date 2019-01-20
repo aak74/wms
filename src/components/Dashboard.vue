@@ -67,7 +67,7 @@ export default {
 
   methods: {
     start() {
-      console.log('start');
+      // console.log('start');
       this.$ctrl.updateStage();
       this.getGates();
       this.getDone();
@@ -83,7 +83,7 @@ export default {
   },
 
   created() {
-    console.log(this.$ctrl);
+    // console.log(this.$ctrl);
     this.start();
 
     
