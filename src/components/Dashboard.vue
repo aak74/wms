@@ -40,6 +40,8 @@ export default {
     return {
       gates: [],
       done: [],
+      backlog: [],
+      stages: this.$ctrl.getList('stage'),
     };
   },
 
@@ -54,23 +56,13 @@ export default {
   //   },
   // },
 
-  computed: {
-    backlog() {
-      return this.$ctrl.getList('backlog');
-    },
-
-    stages() {
-      return this.$ctrl.getList('stage');
-    },
-
-  },
-
   methods: {
     start() {
       // console.log('start');
-      this.$ctrl.updateStage();
       this.getGates();
       this.getDone();
+      this.getBacklog();
+      this.$ctrl.start();
     },
 
     getGates() {
@@ -80,17 +72,15 @@ export default {
     getDone() {
       this.done = this.$ctrl.getList('done');
     },
+
+    getBacklog() {
+      this.backlog = this.$ctrl.getList('backlog');
+    },
+
   },
 
   created() {
-    // console.log(this.$ctrl);
     this.start();
-
-    
-    // this.timer = setInterval(() => {
-    //   this.getGates();
-    //   this.getDone();
-    // }, 1000);
   },
 
   destroyed() {

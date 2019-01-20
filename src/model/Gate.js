@@ -2,50 +2,11 @@
 
 import Model from './Model';
 
+import data from './data/Gate';
+
 class Gate extends Model {
   constructor(stages, done) {
-    super([
-      {
-        id: 11,
-        stage: 1,
-        time: 2,
-        task: {
-          id: 123,
-        },
-      },
-      {
-        id: 2,
-        stage: 1,
-        time: 3,
-        task: {
-          id: 234,
-        },
-      },
-      {
-        id: 3,
-        stage: 0,
-        time: 4,
-        task: {
-          id: 345,
-        },
-      },
-      {
-        id: 4,
-        stage: 3,
-        time: 2,
-        task: {
-          id: 546,
-        },
-      },
-      {
-        id: 5,
-        stage: 1,
-        time: 2,
-        task: {
-          id: 675,
-        }
-      }
-    ]);
+    super(data);
     this.stages = stages;
     this.done = done;
   }
@@ -68,8 +29,10 @@ class Gate extends Model {
         }
       }
       if (arr[index].stage >= this.stages.length) {
-        this.done(arr[index].task);
+        // this.done();
+        this.emit('done', arr[index].task)
         arr[index].task = null;
+        this.emit('ready', index)
       }
     });
   }
@@ -77,6 +40,16 @@ class Gate extends Model {
   getTimeForStage(index) {
     // console.log('gtfs', this.stages[index].time);
     return this.stages[index].time * (1.5 - Math.random());
+  }
+
+  addTask({nextTask, gateIndex}) {
+    console.log('addTask', nextTask, gateIndex, this.items[gateIndex].task);
+
+    if (this.items[gateIndex].task === null) {
+      this.items[gateIndex].task = nextTask;
+      this.items[gateIndex].stage = 0;
+      this.items[gateIndex].time = this.getTimeForStage(0);
+    }
   }
 }
 

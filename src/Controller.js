@@ -1,17 +1,33 @@
 'use strict';
 
 import GateModel from './model/Gate';
-import updateStages from './service/UpdateStages';
 import BacklogModel from './model/Backlog';
 import DoneModel from './model/Done';
 import StageModel from './model/Stage';
+
+import startEngine from './service/StartEngine';
+import doneTask from './service/DoneTask';
+import addTaskToGate from './service/AddTaskToGate';
 
 class Controller {
   constructor() {
     this.stageModel = new StageModel;
     this.doneModel = new DoneModel;
-    this.gateModel = new GateModel(this.stageModel.getList(), (item) => {
-      this.done(item);
+    this.gateModel = new GateModel(this.stageModel.getList());
+    this.gateModel.on('done', (task) => {
+      doneTask({
+        task,
+        doneModel: this.doneModel,
+      });
+    });
+    this.gateModel.on('ready', (gateIndex) => {
+      console.log('ready', gateIndex);
+      // debugger;
+      addTaskToGate({
+        gateIndex,
+        gateModel: this.gateModel,
+        backlogModel: this.backlogModel,
+      });
     });
     this.backlogModel = new BacklogModel;
   }
@@ -23,12 +39,17 @@ class Controller {
     throw new Error(`Model ${modelName} doesn't registered`);
   }
 
-  updateStage() {
-    updateStages(this.gateModel);
+  start() {
+    startEngine(this.gateModel);
   }
 
-  done(item) {
-    this.doneModel.add(item);
+  done(task) {
+    doneTask({
+      task, 
+      doneModel:this.doneModel, 
+      backlogModel:this.backlogModel,
+      gateModel:this.gateModel,
+    })
   }
 }
 

@@ -1,7 +1,10 @@
 'use strict';
 
-class Model {
+import EventEmitter from 'event-emitter-es6';
+
+class Model extends EventEmitter {
   constructor(items) {
+    super();
     this.items = items || [];
   }
 

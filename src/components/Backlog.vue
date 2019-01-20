@@ -13,7 +13,7 @@
             slot="item"
             slot-scope="props"
           >
-            {{ props.item }}
+            {{ props.item.id }}
           </div>
         </v-data-iterator>
       </v-flex>
